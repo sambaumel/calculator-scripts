@@ -1,35 +1,35 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function toggleAccordion(elementId, isVisible) {
-        const element = document.getElementById(elementId);
-        element.style.display = isVisible ? "block" : "none";
-        updateTotal();
-    }
+    
+    // Add event listeners for input fields
+    document.getElementById('numberOfScenes').addEventListener('input', updateTotal);
+    document.getElementById('pagesPerScenario').addEventListener('input', updateTotal);
+    document.getElementById('numberOfLocationsToSecure').addEventListener('input', updateTotal);
 
     function updateTotal() {
-        let total = 0;
+        let total = 0;  // Initialize the total cost
         let totalPerformerCount = 0;
         let performersPerDay = 0;
         let crewMembers = 6; // Base crew size
 
-        // Retrieve input values with fallback to zero
-        const scriptwritingOption = document.getElementById('scriptwritingOption').value;
+        // Retrieve input values with fallback to zero if empty
+        const scriptwritingOption = document.getElementById('scriptwritingOption')?.value || 'none';
         const scenes = parseInt(document.getElementById('numberOfScenes').value) || 0;
         const pagesPerScenario = parseInt(document.getElementById('pagesPerScenario').value) || 1;
         const locationsToSecure = parseInt(document.getElementById('numberOfLocationsToSecure').value) || 0;
-        const providedLocations = parseInt(document.getElementById('numberOfProvidedLocations').value) || 0;
-        const numberOfCompanyMoves = parseInt(document.getElementById('numberOfCompanyMoves').value) || 0;
-        const providedPerformers = parseInt(document.getElementById('numberOfProvidedPerformers').value) || 0;
-        const leadPerformers = parseInt(document.getElementById('leadPerformers').value) || 0;
-        const backgroundPerformers = parseInt(document.getElementById('backgroundPerformers').value) || 0;
-        const rehearsalType = document.getElementById('rehearsalType').value;
-        const rehearsalPerformers = parseInt(document.getElementById('rehearsalPerformers').value) || 0;
-        const wardrobePerformers = parseInt(document.getElementById('wardrobePerformers').value) || 0;
+        const providedLocations = parseInt(document.getElementById('numberOfProvidedLocations')?.value) || 0;
+        const numberOfCompanyMoves = parseInt(document.getElementById('numberOfCompanyMoves')?.value) || 0;
+        const providedPerformers = parseInt(document.getElementById('numberOfProvidedPerformers')?.value) || 0;
+        const leadPerformers = parseInt(document.getElementById('leadPerformers')?.value) || 0;
+        const backgroundPerformers = parseInt(document.getElementById('backgroundPerformers')?.value) || 0;
+        const rehearsalType = document.getElementById('rehearsalType')?.value || 'none';
+        const rehearsalPerformers = parseInt(document.getElementById('rehearsalPerformers')?.value) || 0;
+        const wardrobePerformers = parseInt(document.getElementById('wardrobePerformers')?.value) || 0;
 
         // Special Services
-        const stylizedLighting = document.getElementById('stylizedLighting').checked;
-        const specialProps = document.getElementById('specialProps').checked;
-        const hairMakeupArtist = document.getElementById('hairMakeupArtist').checked;
-        const craftServices = document.getElementById('craftServices').checked;
+        const stylizedLighting = document.getElementById('stylizedLighting')?.checked || false;
+        const specialProps = document.getElementById('specialProps')?.checked || false;
+        const hairMakeupArtist = document.getElementById('hairMakeupArtist')?.checked || false;
+        const craftServices = document.getElementById('craftServices')?.checked || false;
 
         // Constants for rates and fees
         const MAX_PAGES_PER_DAY = 22;
@@ -306,16 +306,5 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalCostElement = document.getElementById('totalCost');
         const formattedTotal = '$' + Math.round(total).toLocaleString('en-US');
         totalCostElement.innerText = formattedTotal;
-
-        // Show or hide the rehearsal performers field based on rehearsal type
-        const rehearsalPerformersField = document.getElementById('rehearsalPerformersField');
-        if (rehearsalType !== 'none') {
-            rehearsalPerformersField.style.display = 'block';
-        } else {
-            rehearsalPerformersField.style.display = 'none';
-        }
     }
-
-    // Add event listeners to inputs to trigger the updateTotal function
-    document.getElementById('numberOfScenes').addEventListener('input', updateTotal);
 });
